@@ -1,10 +1,10 @@
 ## Basic Git Ignore file for my public Haxe Projects
 
 ## Exclude assets due to licencing restrictions
-.png
-.ogg
-.wav
-.mp3
+*.png
+*.ogg
+*.wav
+*.mp3
 
 ## Exclue common directories
 bin/
