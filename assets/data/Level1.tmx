@@ -30,7 +30,7 @@
   <object id="19" gid="7" x="269.477" y="206.894" width="16" height="16"/>
   <object id="20" gid="7" x="752.107" y="207.589" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="6" name="enemies">
+ <objectgroup id="6" name="enemies" locked="1">
   <object id="22" gid="8" x="208.279" y="207.589" width="16" height="16"/>
  </objectgroup>
 </map>
