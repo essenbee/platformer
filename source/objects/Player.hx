@@ -1,4 +1,4 @@
-package;
+package objects;
 
 import flixel.FlxG;
 import flixel.FlxObject;
@@ -17,7 +17,7 @@ class Player extends FlxSprite
 
 	public var direction:Int = 1;
 
-	public function new(x:Float, y:Float)
+	public function new(?x:Float = 0, ?y:Float = 0)
 	{
 		super(x, y);
 		loadGraphic(AssetPaths.player__png, true, 16, 16);
@@ -65,7 +65,7 @@ class Player extends FlxSprite
 		{
 			if (FlxG.keys.justPressed.C && isTouching(FlxObject.FLOOR))
 			{
-				velocity.y = JUMP_FORCE;
+				jump();
 			}
 
 			if (FlxG.keys.pressed.X)
@@ -77,6 +77,16 @@ class Player extends FlxSprite
 				maxVelocity.x = WALK_SPEED;
 			}
 		}
+
+		if (x < 0)
+		{
+			x = 0;
+		}
+	}
+
+	public function jump()
+	{
+		velocity.y = JUMP_FORCE;
 	}
 
 	private function animate()
