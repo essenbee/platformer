@@ -1,5 +1,6 @@
 package states;
 
+import flixel.FlxCamera;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.group.FlxSpriteGroup;
@@ -51,5 +52,14 @@ class Display extends FlxSpriteGroup
 		textTime.text = "TIME\n" + StringTools.lpad(Std.string(Math.floor(Reg.time)), "0", 3);
 		textLevel.text = "STAGE\n" + (Reg.level + 1);
 		super.update(elapsed);
+	}
+
+	public function setCamera(camera:FlxCamera)
+	{
+		forEach(function(obj)
+		{
+			obj.scrollFactor.set(0, 0);
+			obj.cameras = [camera];
+		});
 	}
 }
