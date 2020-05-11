@@ -50,6 +50,7 @@ import sys.FileSystem;
 		}
 
 		#if (openfl && !flash && !display)
+		openfl.text.Font.registerFont (__ASSET__OPENFL__assets_data_pixel_font_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf);
 		openfl.text.Font.registerFont (__ASSET__OPENFL__flixel_fonts_monsterrat_ttf);
 		
@@ -68,7 +69,7 @@ import sys.FileSystem;
 
 		#else
 
-		data = '{"name":null,"assets":"aoy4:pathy34:assets%2Fdata%2Fdata-goes-here.txty4:sizezy4:typey4:TEXTy2:idR1y7:preloadtgoR0y26:assets%2Fdata%2FLevel1.tmxR2i10578R3R4R5R7R6tgoR0y30:assets%2Fdata%2Fplatformer.tsxR2i238R3R4R5R8R6tgoR0y28:assets%2Fimages%2FenemyA.pngR2i533R3y5:IMAGER5R9R6tgoR0y36:assets%2Fimages%2Fimages-go-here.txtR2zR3R4R5R11R6tgoR0y27:assets%2Fimages%2Fitems.pngR2i1276R3R10R5R12R6tgoR0y28:assets%2Fimages%2Fplayer.pngR2i674R3R10R5R13R6tgoR0y27:assets%2Fimages%2Ftiles.pngR2i2277R3R10R5R14R6tgoR0y36:assets%2Fmusic%2Fmusic-goes-here.txtR2zR3R4R5R15R6tgoR0y36:assets%2Fsounds%2Fsounds-go-here.txtR2zR3R4R5R16R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3y9:pathGroupaR18y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R17R5y28:flixel%2Fsounds%2Fflixel.mp3R19aR21y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R20R19aR18R20hgoR2i33629R3R23R5R22R19aR21R22hgoR2i15744R3y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R24R25y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R10R5R30R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R10R5R31R6tgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
+		data = '{"name":null,"assets":"aoy4:pathy34:assets%2Fdata%2Fdata-goes-here.txty4:sizezy4:typey4:TEXTy2:idR1y7:preloadtgoR0y26:assets%2Fdata%2FLevel1.tmxR2i10589R3R4R5R7R6tgoR2i10616R3y4:FONTy9:classNamey35:__ASSET__assets_data_pixel_font_ttfR5y30:assets%2Fdata%2Fpixel-font.ttfR6tgoR0y30:assets%2Fdata%2Fplatformer.tsxR2i238R3R4R5R12R6tgoR0y29:assets%2Fimages%2Fdisplay.pngR2i348R3y5:IMAGER5R13R6tgoR0y28:assets%2Fimages%2FenemyA.pngR2i533R3R14R5R15R6tgoR0y36:assets%2Fimages%2Fimages-go-here.txtR2zR3R4R5R16R6tgoR0y27:assets%2Fimages%2Fitems.pngR2i1276R3R14R5R17R6tgoR0y28:assets%2Fimages%2Fplayer.pngR2i674R3R14R5R18R6tgoR0y27:assets%2Fimages%2Ftiles.pngR2i2277R3R14R5R19R6tgoR0y36:assets%2Fmusic%2Fmusic-goes-here.txtR2zR3R4R5R20R6tgoR0y36:assets%2Fsounds%2Fsounds-go-here.txtR2zR3R4R5R21R6tgoR2i2114R3y5:MUSICR5y26:flixel%2Fsounds%2Fbeep.mp3y9:pathGroupaR23y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR2i39706R3R22R5y28:flixel%2Fsounds%2Fflixel.mp3R24aR26y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR2i5794R3y5:SOUNDR5R25R24aR23R25hgoR2i33629R3R28R5R27R24aR26R27hgoR2i15744R3R8R9y35:__ASSET__flixel_fonts_nokiafc22_ttfR5y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR2i29724R3R8R9y36:__ASSET__flixel_fonts_monsterrat_ttfR5y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR0y33:flixel%2Fimages%2Fui%2Fbutton.pngR2i519R3R14R5R33R6tgoR0y36:flixel%2Fimages%2Flogo%2Fdefault.pngR2i3280R3R14R5R34R6tgh","rootPath":null,"version":2,"libraryArgs":[],"libraryType":null}';
 		manifest = AssetManifest.parse (data, rootPath);
 		library = AssetLibrary.fromManifest (manifest);
 		Assets.registerLibrary ("default", library);
@@ -98,7 +99,9 @@ null
 
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_data_data_goes_here_txt extends null { }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_data_level1_tmx extends null { }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_data_pixel_font_ttf extends null { }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_data_platformer_tsx extends null { }
+@:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_display_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_enemya_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_images_go_here_txt extends null { }
 @:keep @:bind @:noCompletion #if display private #end class __ASSET__assets_images_items_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -121,7 +124,9 @@ null
 
 @:keep @:file("assets/data/data-goes-here.txt") @:noCompletion #if display private #end class __ASSET__assets_data_data_goes_here_txt extends haxe.io.Bytes {}
 @:keep @:file("assets/data/Level1.tmx") @:noCompletion #if display private #end class __ASSET__assets_data_level1_tmx extends haxe.io.Bytes {}
+@:keep @:font("export/html5/obj/webfont/pixel-font.ttf") @:noCompletion #if display private #end class __ASSET__assets_data_pixel_font_ttf extends lime.text.Font {}
 @:keep @:file("assets/data/platformer.tsx") @:noCompletion #if display private #end class __ASSET__assets_data_platformer_tsx extends haxe.io.Bytes {}
+@:keep @:image("assets/images/display.png") @:noCompletion #if display private #end class __ASSET__assets_images_display_png extends lime.graphics.Image {}
 @:keep @:image("assets/images/enemyA.png") @:noCompletion #if display private #end class __ASSET__assets_images_enemya_png extends lime.graphics.Image {}
 @:keep @:file("assets/images/images-go-here.txt") @:noCompletion #if display private #end class __ASSET__assets_images_images_go_here_txt extends haxe.io.Bytes {}
 @:keep @:image("assets/images/items.png") @:noCompletion #if display private #end class __ASSET__assets_images_items_png extends lime.graphics.Image {}
@@ -143,6 +148,7 @@ null
 
 #else
 
+@:keep @:expose('__ASSET__assets_data_pixel_font_ttf') @:noCompletion #if display private #end class __ASSET__assets_data_pixel_font_ttf extends lime.text.Font { public function new () { #if !html5 __fontPath = "assets/data/pixel-font"; #else ascender = 1024; descender = -256; height = 1309; numGlyphs = 89; underlinePosition = 77; underlineThickness = 51; unitsPerEM = 1024; #end name = "Early GameBoy Regular"; super (); }}
 @:keep @:expose('__ASSET__flixel_fonts_nokiafc22_ttf') @:noCompletion #if display private #end class __ASSET__flixel_fonts_nokiafc22_ttf extends lime.text.Font { public function new () { #if !html5 __fontPath = "flixel/fonts/nokiafc22"; #else ascender = 2048; descender = -512; height = 2816; numGlyphs = 172; underlinePosition = -640; underlineThickness = 256; unitsPerEM = 2048; #end name = "Nokia Cellphone FC Small"; super (); }}
 @:keep @:expose('__ASSET__flixel_fonts_monsterrat_ttf') @:noCompletion #if display private #end class __ASSET__flixel_fonts_monsterrat_ttf extends lime.text.Font { public function new () { #if !html5 __fontPath = "flixel/fonts/monsterrat"; #else ascender = 968; descender = -251; height = 1219; numGlyphs = 263; underlinePosition = -150; underlineThickness = 50; unitsPerEM = 1000; #end name = "Monsterrat"; super (); }}
 
@@ -152,10 +158,12 @@ null
 #if (openfl && !flash)
 
 #if html5
+@:keep @:expose('__ASSET__OPENFL__assets_data_pixel_font_ttf') @:noCompletion #if display private #end class __ASSET__OPENFL__assets_data_pixel_font_ttf extends openfl.text.Font { public function new () { __fromLimeFont (new __ASSET__assets_data_pixel_font_ttf ()); super (); }}
 @:keep @:expose('__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf') @:noCompletion #if display private #end class __ASSET__OPENFL__flixel_fonts_nokiafc22_ttf extends openfl.text.Font { public function new () { __fromLimeFont (new __ASSET__flixel_fonts_nokiafc22_ttf ()); super (); }}
 @:keep @:expose('__ASSET__OPENFL__flixel_fonts_monsterrat_ttf') @:noCompletion #if display private #end class __ASSET__OPENFL__flixel_fonts_monsterrat_ttf extends openfl.text.Font { public function new () { __fromLimeFont (new __ASSET__flixel_fonts_monsterrat_ttf ()); super (); }}
 
 #else
+@:keep @:expose('__ASSET__OPENFL__assets_data_pixel_font_ttf') @:noCompletion #if display private #end class __ASSET__OPENFL__assets_data_pixel_font_ttf extends openfl.text.Font { public function new () { __fromLimeFont (new __ASSET__assets_data_pixel_font_ttf ()); super (); }}
 @:keep @:expose('__ASSET__OPENFL__flixel_fonts_nokiafc22_ttf') @:noCompletion #if display private #end class __ASSET__OPENFL__flixel_fonts_nokiafc22_ttf extends openfl.text.Font { public function new () { __fromLimeFont (new __ASSET__flixel_fonts_nokiafc22_ttf ()); super (); }}
 @:keep @:expose('__ASSET__OPENFL__flixel_fonts_monsterrat_ttf') @:noCompletion #if display private #end class __ASSET__OPENFL__flixel_fonts_monsterrat_ttf extends openfl.text.Font { public function new () { __fromLimeFont (new __ASSET__flixel_fonts_monsterrat_ttf ()); super (); }}
 
