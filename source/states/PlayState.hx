@@ -1,11 +1,10 @@
 package states;
 
-import flixel.FlxBasic;
 import flixel.FlxCamera.FlxCameraFollowStyle;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxState;
-import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import objects.Coin;
 import objects.Enemy;
@@ -21,18 +20,25 @@ class PlayState extends FlxState
 
 	private var display:Display;
 
+	private var entities:FlxGroup;
+
 	override public function create()
 	{
+		Reg.state = this;
+		Reg.paused = false;
+		Reg.time = 300; // Time limit for level
 		player = new Player();
 		items = new FlxTypedGroup<FlxSprite>();
 		enemies = new FlxTypedGroup<Enemy>();
+		entities = new FlxGroup();
 		display = new Display();
 
 		LevelLoader.loadLevel(this, "Level1");
 
 		add(player);
-		add(items);
-		add(enemies);
+		entities.add(items);
+		entities.add(enemies);
+		add(entities);
 		add(display);
 
 		FlxG.camera.follow(player, FlxCameraFollowStyle.PLATFORMER);
@@ -44,20 +50,44 @@ class PlayState extends FlxState
 	override public function update(elapsed:Float)
 	{
 		super.update(elapsed);
-		FlxG.collide(map, player);
-		FlxG.collide(map, enemies);
-		FlxG.overlap(items, player, collideItems);
-		FlxG.overlap(enemies, player, collideEnemies);
+		updateTime(elapsed);
+
+		if (player.alive)
+		{
+			FlxG.collide(map, player);
+			FlxG.overlap(entities, player, collideEntity);
+		}
+
+		FlxG.collide(map, entities);
 		FlxG.collide(enemies, enemies);
 	}
 
-	function collideItems(coin:Coin, player:Player):Void
+	function updateTime(elapsed:Float)
 	{
-		coin.collect();
+		if (!Reg.paused)
+		{
+			if (Reg.time > 0)
+			{
+				Reg.time -= elapsed;
+			}
+			else
+			{
+				Reg.time = 0;
+				player.kill();
+			}
+		}
 	}
 
-	function collideEnemies(enemy:Enemy, player:Player):Void
+	function collideEntity(entity:FlxSprite, player:Player)
 	{
-		enemy.interact(player);
+		if (Std.is(entity, Coin))
+		{
+			(cast entity).collect();
+		}
+
+		if (Std.is(entity, Enemy))
+		{
+			(cast entity).interact(player);
+		}
 	}
 }

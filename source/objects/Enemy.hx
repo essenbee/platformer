@@ -2,29 +2,22 @@ package objects;
 
 import flixel.FlxObject;
 import flixel.FlxSprite;
+import flixel.util.FlxTimer;
 import objects.Player;
 
 class Enemy extends FlxSprite
 {
 	private static inline final GRAVITY:Int = 420;
 	private static inline final WALK_SPEED:Int = 40;
-	private static inline final SCORE_AMOUNT:Int = 100;
 	private static inline final FALLING_SPEED:Int = 200;
+	private static inline final SCORE_AMOUNT:Int = 100;
 
-	private var direction:Int = 1;
+	private var direction:Int = -1;
 	private var appeared:Bool = false;
 
 	public function new(x:Float, y:Float)
 	{
 		super(x, y);
-		loadGraphic(AssetPaths.enemyA__png, true, 16, 16);
-		animation.add("walk", [0, 1, 2], 12);
-		animation.add("dead", [3], 12);
-		animation.play("walk");
-
-		setSize(12, 12);
-		offset.set(2, 4);
-
 		acceleration.y = GRAVITY;
 		maxVelocity.y = FALLING_SPEED;
 	}
@@ -43,7 +36,10 @@ class Enemy extends FlxSprite
 
 		if (appeared && alive)
 		{
-			move();
+			if (!Reg.paused)
+			{
+				move();
+			}
 
 			if (justTouched(FlxObject.WALL))
 			{
@@ -54,10 +50,7 @@ class Enemy extends FlxSprite
 		super.update(elapsed);
 	}
 
-	private function move()
-	{
-		velocity.x = direction * WALK_SPEED;
-	}
+	private function move() {}
 
 	private function flipDirection()
 	{
@@ -83,5 +76,20 @@ class Enemy extends FlxSprite
 		{
 			player.kill();
 		}
+	}
+
+	override public function kill()
+	{
+		alive = false;
+		Reg.score += SCORE_AMOUNT;
+		velocity.x = 0;
+		acceleration.x = 0;
+		animation.play("dead");
+
+		new FlxTimer().start(1.0, function(_)
+		{
+			exists = false;
+			visible = false;
+		});
 	}
 }

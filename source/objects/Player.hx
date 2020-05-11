@@ -4,6 +4,7 @@ import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
 import flixel.math.FlxMath;
+import flixel.util.FlxTimer;
 
 class Player extends FlxSprite
 {
@@ -44,6 +45,29 @@ class Player extends FlxSprite
 		super.update(elapsed);
 	}
 
+	override public function kill()
+	{
+		if (alive)
+		{
+			alive = false;
+			velocity.set(0, 0);
+			acceleration.set(0, 0);
+			Reg.lives -= 1;
+			Reg.paused = true;
+			FlxG.camera.shake();
+
+			new FlxTimer().start(2.0, function(_)
+			{
+				acceleration.y = GRAVITY;
+				jump();
+			}, 1);
+			new FlxTimer().start(5.0, function(_)
+			{
+				FlxG.resetState();
+			}, 1);
+		}
+	}
+
 	private function move()
 	{
 		acceleration.x = 0;
@@ -78,20 +102,38 @@ class Player extends FlxSprite
 			}
 		}
 
+		// Cannot move off the left edge of map...
 		if (x < 0)
 		{
 			x = 0;
+		}
+
+		// Fall off bottom of the map...
+		if (y > Reg.state.map.height)
+		{
+			kill();
 		}
 	}
 
 	public function jump()
 	{
-		velocity.y = JUMP_FORCE;
+		if (FlxG.keys.pressed.C)
+		{
+			velocity.y = JUMP_FORCE;
+		}
+		else
+		{
+			velocity.y = JUMP_FORCE / 2;
+		}
 	}
 
 	private function animate()
 	{
-		if (velocity.y < 0 && !isTouching(FlxObject.FLOOR))
+		if (!alive)
+		{
+			animation.play("dead");
+		}
+		else if (velocity.y < 0 && !isTouching(FlxObject.FLOOR))
 		{
 			animation.play("jump");
 		}

@@ -15,6 +15,14 @@ class Coin extends FlxSprite
 		animation.play("spin");
 	}
 
+	override function update(elapsed:Float)
+	{
+		if (!Reg.paused)
+		{
+			super.update(elapsed);
+		}
+	}
+
 	public function collect()
 	{
 		Reg.score += SCORE_AMOUNT;

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="54" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="23">
+<map version="1.2" tiledversion="1.3.4" orientation="orthogonal" renderorder="right-down" width="54" height="15" tilewidth="16" tileheight="16" infinite="0" nextlayerid="7" nextobjectid="24">
  <tileset firstgid="1" source="platformer.tsx"/>
  <layer id="2" name="background" width="54" height="15" locked="1">
   <data encoding="base64">
@@ -31,6 +31,7 @@
   <object id="20" gid="7" x="752.107" y="207.589" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="enemies" locked="1">
-  <object id="22" gid="8" x="208.279" y="207.589" width="16" height="16"/>
+  <object id="22" type="enemyA" gid="8" x="208.279" y="207.589" width="16" height="16"/>
+  <object id="23" type="enemyB" gid="16" x="367.533" y="208.284" width="16" height="16"/>
  </objectgroup>
 </map>
