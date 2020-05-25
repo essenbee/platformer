@@ -5,6 +5,7 @@ import flixel.addons.editors.tiled.TiledObject;
 import flixel.addons.editors.tiled.TiledObjectLayer;
 import flixel.addons.editors.tiled.TiledTileLayer;
 import flixel.tile.FlxTilemap;
+import objects.BonusBlock;
 import objects.Coin;
 import objects.EnemyA;
 import objects.EnemyB;
@@ -42,6 +43,13 @@ class LevelLoader
 				case "enemyB":
 					state.enemies.add(new EnemyB(enemy.x, enemy.y - 16));
 			}
+		}
+
+		for (block in getLevelObjects(tiledMap, "blocks"))
+		{
+			var bonus = new BonusBlock(block.x, block.y - 16);
+			bonus.contains = block.type;
+			state.blocks.add(bonus);
 		}
 
 		var playerPos:TiledObject = getLevelObjects(tiledMap, "player")[0];

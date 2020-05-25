@@ -8,9 +8,11 @@ import flixel.FlxState;
 import flixel.group.FlxGroup;
 import flixel.tile.FlxTilemap;
 import flixel.util.FlxColor;
+import objects.BonusBlock;
 import objects.Coin;
 import objects.Enemy;
 import objects.Player;
+import objects.PowerUp;
 import utils.LevelLoader;
 
 class PlayState extends FlxState
@@ -19,11 +21,13 @@ class PlayState extends FlxState
 	public var player(default, null):FlxSprite;
 	public var items(default, null):FlxTypedGroup<FlxSprite>;
 	public var enemies(default, null):FlxTypedGroup<Enemy>;
+	public var blocks(default, null):FlxTypedGroup<FlxSprite>;
 
 	private var display:Display;
 	private var gameCamera:FlxCamera;
 	private var displayCamera:FlxCamera;
 	private var entities:FlxGroup;
+	private var terrain:FlxGroup;
 
 	override public function create()
 	{
@@ -41,6 +45,8 @@ class PlayState extends FlxState
 
 		player = new Player();
 		items = new FlxTypedGroup<FlxSprite>();
+		terrain = new FlxGroup();
+		blocks = new FlxTypedGroup<FlxSprite>();
 		enemies = new FlxTypedGroup<Enemy>();
 		entities = new FlxGroup();
 		display = new Display();
@@ -51,6 +57,9 @@ class PlayState extends FlxState
 		add(player);
 		entities.add(items);
 		entities.add(enemies);
+		entities.add(blocks);
+		terrain.add(map);
+		terrain.add(blocks);
 		add(entities);
 		add(display);
 
@@ -69,11 +78,11 @@ class PlayState extends FlxState
 
 		if (player.alive)
 		{
-			FlxG.collide(map, player);
 			FlxG.overlap(entities, player, collideEntity);
+			FlxG.collide(terrain, player);
 		}
 
-		FlxG.collide(map, entities);
+		FlxG.collide(terrain, entities);
 		FlxG.collide(enemies, enemies);
 	}
 
@@ -103,6 +112,16 @@ class PlayState extends FlxState
 		if (Std.is(entity, Enemy))
 		{
 			(cast entity).interact(player);
+		}
+
+		if (Std.is(entity, BonusBlock))
+		{
+			(cast entity).hit(player);
+		}
+
+		if (Std.is(entity, PowerUp))
+		{
+			(cast entity).collect(player);
 		}
 	}
 }

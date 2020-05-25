@@ -16,22 +16,18 @@ class Player extends FlxSprite
 	private static inline final RUN_SPEED:Int = 140;
 	private static inline final FALLING_SPEED:Int = 300;
 
+	private var stopAnimations = false;
+
 	public var direction:Int = 1;
 
 	public function new(?x:Float = 0, ?y:Float = 0)
 	{
 		super(x, y);
-		loadGraphic(AssetPaths.player__png, true, 16, 16);
+		health = 0; // Start out as normal squirrel!
+		reloadGraphics();
 
-		animation.add("idle", [0]);
-		animation.add("walk", [1, 2, 3, 2], 12);
-		animation.add("skid", [4]);
-		animation.add("jump", [5]);
-		animation.add("fall", [5]);
 		animation.add("dead", [6]);
-
-		setSize(8, 12);
-		offset.set(4, 4);
+		animation.add("change", [5, 12], 24);
 
 		drag.x = DRAG;
 		acceleration.y = GRAVITY;
@@ -41,7 +37,12 @@ class Player extends FlxSprite
 	override public function update(elapsed:Float)
 	{
 		move();
-		animate();
+
+		if (!stopAnimations)
+		{
+			animate();
+		}
+
 		super.update(elapsed);
 	}
 
@@ -65,6 +66,55 @@ class Player extends FlxSprite
 			{
 				FlxG.resetState();
 			}, 1);
+		}
+	}
+
+	public function powerUp()
+	{
+		if (health == 1)
+		{
+			return;
+		}
+
+		Reg.paused = true;
+		stopAnimations = true;
+		animation.play("change");
+		velocity.set(0, 0);
+		acceleration.set(0, 0);
+
+		new FlxTimer().start(1.0, function(_)
+		{
+			health++;
+			reloadGraphics();
+			Reg.paused = false;
+			stopAnimations = false;
+		});
+	}
+
+	private function reloadGraphics()
+	{
+		loadGraphic(AssetPaths.player_both__png, true, 16, 32);
+
+		switch (health)
+		{
+			case 0:
+				animation.add("idle", [0]);
+				animation.add("walk", [1, 2, 3, 2], 12);
+				animation.add("skid", [4]);
+				animation.add("jump", [5]);
+				animation.add("fall", [5]);
+
+				setSize(8, 12);
+				offset.set(4, 20);
+			case 1:
+				animation.add("idle", [7]);
+				animation.add("walk", [8, 9, 10, 9], 12);
+				animation.add("skid", [11]);
+				animation.add("jump", [12]);
+				animation.add("fall", [12]);
+
+				setSize(8, 24);
+				// offset.set(4, 8);
 		}
 	}
 

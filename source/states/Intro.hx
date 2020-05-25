@@ -7,7 +7,9 @@ import flixel.FlxSubState;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import flixel.util.FlxTimer;
+import js.html.AbortController;
 import openfl.system.System;
+import states.MenuState;
 
 class Intro extends FlxSubState
 {
@@ -63,7 +65,10 @@ class Intro extends FlxSubState
 		{
 			if (gameOver)
 			{
-				System.exit(0);
+				Reg.saveHighScore();
+				Reg.lives = 3;
+				Reg.score = 0;
+				FlxG.switchState(new MenuState());
 			}
 			else
 			{

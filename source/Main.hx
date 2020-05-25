@@ -3,6 +3,7 @@ package;
 import flixel.FlxG;
 import flixel.FlxGame;
 import openfl.display.Sprite;
+import states.MenuState;
 import states.PlayState;
 
 class Main extends Sprite
@@ -11,6 +12,6 @@ class Main extends Sprite
 	{
 		super();
 		FlxG.log.redirectTraces = true;
-		addChild(new FlxGame(320, 240, PlayState));
+		addChild(new FlxGame(320, 240, MenuState));
 	}
 }
